@@ -114,28 +114,28 @@ public class TableViewDemo extends Application {
         table.setItems(data);
         table.getColumns().addAll(companyCol, phoneCol, websiteCol);
  
-        final TextField addFirstName = new TextField();
-        addFirstName.setPromptText("First Name");
-        addFirstName.setMaxWidth(companyCol.getPrefWidth());
-        final TextField addLastName = new TextField();
-        addLastName.setMaxWidth(phoneCol.getPrefWidth());
-        addLastName.setPromptText("Last Name");
-        final TextField addEmail = new TextField();
-        addEmail.setMaxWidth(websiteCol.getPrefWidth());
-        addEmail.setPromptText("Email");
+        final TextField addCompany = new TextField();
+        addCompany.setPromptText("Company");
+        addCompany.setMaxWidth(companyCol.getPrefWidth());
+        final TextField addPhone = new TextField();
+        addPhone.setMaxWidth(phoneCol.getPrefWidth());
+        addPhone.setPromptText("Phone");
+        final TextField addWebsite = new TextField();
+        addWebsite.setMaxWidth(websiteCol.getPrefWidth());
+        addWebsite.setPromptText("Website");
  
         final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
             data.add(new Person(
-                    addFirstName.getText(),
-                    addLastName.getText(),
-                    addEmail.getText()));
-            addFirstName.clear();
-            addLastName.clear();
-            addEmail.clear();
+                    addCompany.getText(),
+                    addPhone.getText(),
+                    addWebsite.getText()));
+            addCompany.clear();
+            addPhone.clear();
+            addWebsite.clear();
         });
  
-        hb.getChildren().addAll(addFirstName, addLastName, addEmail, addButton);
+        hb.getChildren().addAll(addCompany, addPhone, addWebsite, addButton);
         hb.setSpacing(3);
  
         final VBox vbox = new VBox();
