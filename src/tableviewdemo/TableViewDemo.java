@@ -9,6 +9,11 @@
 
 package tableviewdemo;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -31,6 +36,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
  
@@ -137,17 +143,23 @@ public class TableViewDemo extends Application {
  
         final Button openButton = new Button("Open");
         openButton.setOnAction((ActionEvent e) -> {
-            System.out.println("Open clicked");
+            try {
+                openFile(stage);
+            } catch (IOException ex) {
+                Logger.getLogger(TableViewDemo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
  
         final Button saveButton = new Button("Save");
         saveButton.setOnAction((ActionEvent e) -> {
             System.out.println("Save clicked");
+            throw new UnsupportedOperationException("Not supported yet.");
         });
  
         final Button quitButton = new Button("Quit");
         quitButton.setOnAction((ActionEvent e) -> {
             System.out.println("Quit clicked");
+            throw new UnsupportedOperationException("Not supported yet.");
         });
  
         hb.getChildren().addAll(addCompany, addPhone, addWebsite, addButton, openButton, saveButton, quitButton);
@@ -162,6 +174,19 @@ public class TableViewDemo extends Application {
  
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void openFile(Stage stage) throws IOException {
+        // Open dialog and output name of file chosen
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(stage);
+        
+        if(file != null) {
+            System.out.println("File selected: " + file);
+        }
+        else {
+         throw new UnsupportedOperationException("Not supported yet.");
+        }
     }
  
     public static class Person {
