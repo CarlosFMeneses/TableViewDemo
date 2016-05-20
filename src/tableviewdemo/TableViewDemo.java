@@ -39,11 +39,9 @@ public class TableViewDemo extends Application {
     private final TableView<Person> table = new TableView<>();
     private final ObservableList<Person> data =
             FXCollections.observableArrayList(
-            new Person("Jacob", "Smith", "jacob.smith@example.com"),
-            new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-            new Person("Ethan", "Williams", "ethan.williams@example.com"),
-            new Person("Emma", "Jones", "emma.jones@example.com"),
-            new Person("Michael", "Brown", "michael.brown@example.com"));
+            new Person("Apple", "(800)692–7753", "apple.com"),
+            new Person("Google", "(800)877-2981", "google.com"),
+            new Person("Facebook", "(888)275-2174 ", "facebook.com"));
     final HBox hb = new HBox();
  
     public static void main(String[] args) {
@@ -53,91 +51,91 @@ public class TableViewDemo extends Application {
     @Override
     public void start(Stage stage) {
         Scene scene = new Scene(new Group());
-        stage.setTitle("Table View Sample");
+        stage.setTitle("Table View Demo");
         stage.setWidth(450);
         stage.setHeight(550);
  
-        final Label label = new Label("Address Book");
+        final Label label = new Label("Customers");
         label.setFont(new Font("Arial", 20));
  
         table.setEditable(true);
         Callback<TableColumn, TableCell> cellFactory;
         cellFactory = (TableColumn p) -> new EditingCell();
  
-        TableColumn firstNameCol = new TableColumn("First Name");
-        firstNameCol.setMinWidth(100);
-        firstNameCol.setCellValueFactory(
-            new PropertyValueFactory<>("firstName"));
-        firstNameCol.setCellFactory(cellFactory);
-        firstNameCol.setOnEditCommit(
+        TableColumn companyCol = new TableColumn("Company");
+        companyCol.setMinWidth(100);
+        companyCol.setCellValueFactory(
+            new PropertyValueFactory<>("companyName"));
+        companyCol.setCellFactory(cellFactory);
+        companyCol.setOnEditCommit(
             new EventHandler<CellEditEvent<Person, String>>() {
                 @Override
                 public void handle(CellEditEvent<Person, String> t) {
                     ((Person) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
-                        ).setFirstName(t.getNewValue());
+                        ).setCompanyName(t.getNewValue());
                 }
              }
         );
  
  
-        TableColumn lastNameCol = new TableColumn("Last Name");
-        lastNameCol.setMinWidth(100);
-        lastNameCol.setCellValueFactory(
-            new PropertyValueFactory<Person, String>("lastName"));
-        lastNameCol.setCellFactory(cellFactory);
-        lastNameCol.setOnEditCommit(
+        TableColumn phoneCol = new TableColumn("Phone");
+        phoneCol.setMinWidth(150);
+        phoneCol.setCellValueFactory(
+            new PropertyValueFactory<>("phoneNumber"));
+        phoneCol.setCellFactory(cellFactory);
+        phoneCol.setOnEditCommit(
             new EventHandler<CellEditEvent<Person, String>>() {
                 @Override
                 public void handle(CellEditEvent<Person, String> t) {
                     ((Person) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
-                        ).setLastName(t.getNewValue());
+                        ).setPhoneNumber(t.getNewValue());
                 }
             }
         );
  
-        TableColumn emailCol = new TableColumn("Email");
-        emailCol.setMinWidth(200);
-        emailCol.setCellValueFactory(
-            new PropertyValueFactory<>("email"));
-        emailCol.setCellFactory(cellFactory);
-        emailCol.setOnEditCommit(
+        TableColumn websiteCol = new TableColumn("Website");
+        websiteCol.setMinWidth(150);
+        websiteCol.setCellValueFactory(
+            new PropertyValueFactory<>("website"));
+        websiteCol.setCellFactory(cellFactory);
+        websiteCol.setOnEditCommit(
             new EventHandler<CellEditEvent<Person, String>>() {
                 @Override
                 public void handle(CellEditEvent<Person, String> t) {
                     ((Person) t.getTableView().getItems().get(
                         t.getTablePosition().getRow())
-                        ).setEmail(t.getNewValue());
+                        ).setWebsite(t.getNewValue());
                 }
             }
         );
  
         table.setItems(data);
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        table.getColumns().addAll(companyCol, phoneCol, websiteCol);
  
-        final TextField addFirstName = new TextField();
-        addFirstName.setPromptText("First Name");
-        addFirstName.setMaxWidth(firstNameCol.getPrefWidth());
-        final TextField addLastName = new TextField();
-        addLastName.setMaxWidth(lastNameCol.getPrefWidth());
-        addLastName.setPromptText("Last Name");
-        final TextField addEmail = new TextField();
-        addEmail.setMaxWidth(emailCol.getPrefWidth());
-        addEmail.setPromptText("Email");
+        final TextField addCompany = new TextField();
+        addCompany.setPromptText("Company");
+        addCompany.setMaxWidth(companyCol.getPrefWidth());
+        final TextField addPhone = new TextField();
+        addPhone.setMaxWidth(phoneCol.getPrefWidth());
+        addPhone.setPromptText("Phone");
+        final TextField addWebsite = new TextField();
+        addWebsite.setMaxWidth(websiteCol.getPrefWidth());
+        addWebsite.setPromptText("Website");
  
         final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
             data.add(new Person(
-                    addFirstName.getText(),
-                    addLastName.getText(),
-                    addEmail.getText()));
-            addFirstName.clear();
-            addLastName.clear();
-            addEmail.clear();
+                    addCompany.getText(),
+                    addPhone.getText(),
+                    addWebsite.getText()));
+            addCompany.clear();
+            addPhone.clear();
+            addWebsite.clear();
         });
  
-        hb.getChildren().addAll(addFirstName, addLastName, addEmail, addButton);
+        hb.getChildren().addAll(addCompany, addPhone, addWebsite, addButton);
         hb.setSpacing(3);
  
         final VBox vbox = new VBox();
@@ -153,38 +151,38 @@ public class TableViewDemo extends Application {
  
     public static class Person {
  
-        private final SimpleStringProperty firstName;
-        private final SimpleStringProperty lastName;
-        private final SimpleStringProperty email;
+        private final SimpleStringProperty companyName;
+        private final SimpleStringProperty phoneNumber;
+        private final SimpleStringProperty website;
  
-        private Person(String fName, String lName, String email) {
-            this.firstName = new SimpleStringProperty(fName);
-            this.lastName = new SimpleStringProperty(lName);
-            this.email = new SimpleStringProperty(email);
+        private Person(String cName, String pNumber, String wSite) {
+            this.companyName = new SimpleStringProperty(cName);
+            this.phoneNumber = new SimpleStringProperty(pNumber);
+            this.website = new SimpleStringProperty(wSite);
         }
  
-        public String getFirstName() {
-            return firstName.get();
+        public String getCompanyName() {
+            return companyName.get();
         }
  
-        public void setFirstName(String fName) {
-            firstName.set(fName);
+        public void setCompanyName(String cName) {
+            companyName.set(cName);
         }
  
-        public String getLastName() {
-            return lastName.get();
+        public String getPhoneNumber() {
+            return phoneNumber.get();
         }
  
-        public void setLastName(String fName) {
-            lastName.set(fName);
+        public void setPhoneNumber(String pNumber) {
+            phoneNumber.set(pNumber);
         }
  
-        public String getEmail() {
-            return email.get();
+        public String getWebsite() {
+            return website.get();
         }
  
-        public void setEmail(String fName) {
-            email.set(fName);
+        public void setWebsite(String wSite) {
+            website.set(wSite);
         }
     }
  
