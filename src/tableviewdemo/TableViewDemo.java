@@ -135,7 +135,22 @@ public class TableViewDemo extends Application {
             addWebsite.clear();
         });
  
-        hb.getChildren().addAll(addCompany, addPhone, addWebsite, addButton);
+        final Button openButton = new Button("Open");
+        openButton.setOnAction((ActionEvent e) -> {
+            System.out.println("Open clicked");
+        });
+ 
+        final Button saveButton = new Button("Save");
+        saveButton.setOnAction((ActionEvent e) -> {
+            System.out.println("Save clicked");
+        });
+ 
+        final Button quitButton = new Button("Quit");
+        quitButton.setOnAction((ActionEvent e) -> {
+            System.out.println("Quit clicked");
+        });
+ 
+        hb.getChildren().addAll(addCompany, addPhone, addWebsite, addButton, openButton, saveButton, quitButton);
         hb.setSpacing(3);
  
         final VBox vbox = new VBox();
